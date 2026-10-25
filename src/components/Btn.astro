@@ -1,0 +1,10 @@
+---
+interface Props { href: string; label: string; variant?: "" | "light" | "red"; size?: "" | "sm"; to?: string; type?: "submit" | "button" }
+const { href, label, variant = "", size = "", to, type } = Astro.props;
+const cls = ["btn", variant && `btn--${variant}`, size && `btn--${size}`].filter(Boolean).join(" ");
+---
+{type ? (
+  <button class={cls} type={type}><span class="roll"><span data-t={label}>{label}</span></span><span class="btn__dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></button>
+) : (
+  <a class={cls} href={href} data-label={to}><span class="roll"><span data-t={label}>{label}</span></span><span class="btn__dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></a>
+)}

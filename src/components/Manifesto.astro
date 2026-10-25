@@ -1,0 +1,23 @@
+---
+// The brand line, unpacked: one row per word, each word fills in as it scrolls past.
+const rows = [
+  { word: "Sports", n: "01", kicker: "The reason to show up", body: "Runs, races, sports days and leagues, built properly: measured, permitted, timed and safe. The sport is what gets people out of bed at 5 AM." },
+  { word: "People", n: "02", kicker: "The reason to stay", body: "Runners, families, teams, brands and athletes on one start line. Everyone counts, from the first finisher to the last walker in a saree." },
+  { word: "Experiences", n: "03", kicker: "The reason to come back", body: "Finish-line music, medals, lucky draws and moments people talk about long after race day. That's what turns an event into a community." },
+];
+---
+<section class="mf dark" data-tone="dark" aria-labelledby="mf-h">
+  <div class="wrap">
+    <div class="mf__head">
+      <p class="label label--dim"><span class="paren">Manifesto</span></p>
+      <h2 id="mf-h" class="lede">Three words sit at the top of everything we do. Here's what they mean to us.</h2>
+    </div>
+    {rows.map((r) => (
+      <article class="mf__row">
+        <span class="mf__n label">{r.n}</span>
+        <h3 class="mf__word d"><span class="mf__o">{r.word}</span><span class="mf__f" aria-hidden="true">{r.word}</span></h3>
+        <div class="mf__copy"><p class="label red-t">{r.kicker}</p><p class="body">{r.body}</p></div>
+      </article>
+    ))}
+  </div>
+</section>

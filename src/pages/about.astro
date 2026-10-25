@@ -1,0 +1,97 @@
+---
+import Base from "../layouts/Base.astro";
+import Media from "../components/Media.astro";
+import PageHero from "../components/PageHero.astro";
+import Cta from "../components/Cta.astro";
+import { SITE, PILLARS } from "../data/site";
+
+const steps = [
+  ["T–90 days", "Brief & budget", "Purpose, audience, format, date and partners. You get a costed plan within a week."],
+  ["T–60 days", "Route & permits", "Route survey and measurement, traffic police and civic approvals, venue and ambulance bookings."],
+  ["T–45 days", "Registrations open", "Online ticketing, category caps, early-bird pricing and partner promotion on social media."],
+  ["T–3 days", "Kit expo", "Bib, chip, T-shirt and goody-bag collection with partner stalls and a participants' briefing."],
+  ["Race day 05:00", "Set-up", "Barricades, marshals, water stations, medical posts and timing mats in place before sunrise."],
+  ["Race day 07:00", "Flag-off & finish", "Warm-up, flag-off, live timing, medals, prizes and results the same day."],
+];
+---
+<Base
+  title="About Crew Commune — Building communities that move | Pune"
+  description="Crew Commune is a Pune sports and community company founded by Yash Raikar. Sports, people and experiences across events, brands, athletes and wellness."
+  crumbs={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]}
+>
+  <PageHero crumb="About" title="Building communities that move." label="About" lede="Crew Commune is a Pune sports and community company. We bring sports, people and experiences together, on race day and every day in between." aside={[`Founded by ${SITE.founder.name}`, "Pune, Maharashtra"]} />
+
+  <div class="band" data-tone="dark" data-reveal>
+    <Media stock="run5" vid="aerial" alt="A runner on a road seen from the air" plate={["06:21", "KM 03"]} tone="maroon" cap={["06:21", " · KM 03"]} sizes="100vw" />
+  </div>
+
+  <section class="sec" data-tone="light" aria-labelledby="story-h">
+    <div class="wrap split2">
+      <div class="split2__a">
+        <p class="label label--dim"><span class="paren">Our story</span></p>
+        <h2 id="story-h" class="d d-l" data-split>Sports. People. Experiences.</h2>
+        <div class="founder">
+          <div class="founder__av" aria-hidden="true">YR</div>
+          <div><p><strong>{SITE.founder.name}</strong></p><p class="label label--dim">Founder, Crew Commune</p></div>
+          <a class="ulink" href={SITE.founder.url} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="split2__b">
+        <p class="lede">Those three words are how Crew Commune describes itself, and they're the order we work in: the sport gives people a reason to show up, the people make it a community, and the experience is what brings them back.</p>
+        <p class="body">Crew Commune was founded by {SITE.founder.name}, a business management professional working across sports and entertainment events in Pune. The crew plans and runs the whole thing: permissions, a measured route, timing, water, first aid, volunteers, sound, partners and a crowd, so the people behind an event can focus on why they're doing it.</p>
+        <p class="body">Our best-known work is the Udaan Nari Shakti Run, a run for women's empowerment through Aundh–Baner that came back for a second season after a well-received first edition.</p>
+        <Media ig={9} stock="group" alt="Runners together after a race" plate={["08:05", "Team photo"]} tone="stone" cap={["08:05", " · Team photo"]} class="zoom ar-43" sizes="(max-width: 900px) 90vw, 45vw" />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark" data-tone="dark" aria-labelledby="pillars-h">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="pillars-h" class="d d-l" data-split>Events × Brands × Athletes × Wellness</h2>
+        <p class="body">Four ways we get people moving. Most of our work uses more than one.</p>
+      </div>
+      <div class="principles">
+        {PILLARS.map((p) => (
+          <div class="principle">
+            <Media ig={p.ig} stock={p.stock} vid={p.vid} alt={`${p.name} by Crew Commune`} plate={p.plate} tone="ink" class="sq" sizes="(max-width: 960px) 45vw, 22vw" />
+            <h3 class="d d-s">{p.name}</h3>
+            <p class="body">{p.line}</p>
+            <a class="ulink label" href={`/services#${p.id}`} data-label="What we do">More →</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" data-tone="light" aria-labelledby="rules-h">
+    <div class="wrap">
+      <div class="head"><h2 id="rules-h" class="d d-l" data-split>Four rules for everything we run</h2></div>
+      <div class="hl">
+        <div><span class="label red-t">01</span><h3 class="d d-s">Safety before speed</h3><p>Medical posts, ambulances, marshals and water are planned before anything else.</p></div>
+        <div><span class="label red-t">02</span><h3 class="d d-s">Start on time</h3><p>People wake up at 4 AM for this. The gun goes when we said it would.</p></div>
+        <div><span class="label red-t">03</span><h3 class="d d-s">Every finisher counts</h3><p>Medals and timing certificates for the last runner as much as the first.</p></div>
+        <div><span class="label red-t">04</span><h3 class="d d-s">Leave it cleaner</h3><p>Society fit, city clean. Bins, clean-up crews and plastic-light water stations.</p></div>
+        <div><span class="label red-t">05</span><h3 class="d d-s">Community first</h3><p>Free and subsidised entries where they matter, like free registration for women at Udaan.</p></div>
+        <div><span class="label red-t">06</span><h3 class="d d-s">Partners who fit</h3><p>Brands and athletes that add something real to the day for the people taking part.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" data-tone="light" id="process" aria-labelledby="process-h">
+    <div class="wrap split2">
+      <div class="split2__a">
+        <p class="label label--dim"><span class="paren">Process</span></p>
+        <h2 id="process-h" class="d d-l" data-split>From brief to finisher medal.</h2>
+        <p class="body">A road race that needs police permission takes about three months. Here's how those weeks are spent.</p>
+      </div>
+      <ol class="steps split2__b">
+        {steps.map(([t, h, p]) => (
+          <li class="step"><span class="step__t label">{t}</span><div><h3 class="d d-s">{h}</h3><p>{p}</p></div></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <Cta l1="Bring us" l2="your start line" />
+</Base>

@@ -1,0 +1,151 @@
+---
+import "@fontsource-variable/archivo/wdth.css";
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+import "../styles/global.css";
+import Seo from "../components/Seo.astro";
+import Media from "../components/Media.astro";
+import Btn from "../components/Btn.astro";
+import { NAV, CONTACT_NAV, SITE } from "../data/site";
+import archivoLatin from "@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url";
+import geistLatin from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
+
+interface Props {
+  title: string;
+  description: string;
+  schema?: Record<string, unknown>[];
+  crumbs?: { name: string; path: string }[];
+  noindex?: boolean;
+}
+const { title, description, schema, crumbs, noindex } = Astro.props;
+const path = Astro.url.pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/";
+const isCurrent = (href: string) => (href === "/" ? path === "/" || path === "/index" : path === href);
+const current = (href: string) => (isCurrent(href) ? "page" : href !== "/" && path.startsWith(`${href}/`) ? "true" : undefined);
+const ALL = [...NAV, CONTACT_NAV];
+
+// Intro loader frames: Crew Commune photo first, stock photo as fallback
+const introFrames: { ig: number; stock: string; time: string; label: string; tone: string }[] = [
+  { ig: 1, stock: "run1", time: "05:58", label: "Start pen", tone: "red" },
+  { ig: 2, stock: "run2", time: "06:02", label: "Saree run", tone: "stone" },
+  { ig: 3, stock: "run4", time: "06:21", label: "KM 03", tone: "maroon" },
+  { ig: 4, stock: "run6", time: "06:34", label: "Pacing", tone: "ink" },
+  { ig: 5, stock: "crowd", time: "06:48", label: "Cheer zone", tone: "track" },
+  { ig: 6, stock: "football", time: "07:05", label: "Sports day", tone: "red" },
+  { ig: 7, stock: "finish", time: "07:31", label: "Finish line", tone: "ink" },
+  { ig: 9, stock: "group", time: "08:05", label: "Team photo", tone: "stone" },
+];
+---
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script is:inline src="/boot.js"></script>
+    <Seo title={title} description={description} schema={schema} crumbs={crumbs} noindex={noindex} />
+    <meta name="theme-color" content="#0D0D0D" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href={archivoLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+  </head>
+  <body>
+    <div class="intro" id="intro" aria-hidden="true">
+      <div class="intro__top"><span class="label">Crew Commune</span><span class="label">Pune · 18.52° N, 73.86° E</span></div>
+      <div class="intro__frame-wrap" id="introWrap">
+        <div class="intro__frame" id="introFrame">
+          <div class="intro__slides" id="introSlides">
+            {introFrames.map((f, i) => (
+              <Media as="div" ig={f.ig} stock={f.stock} plate={[f.time, f.label]} tone={f.tone} class={i === 0 ? "is-on" : ""} sizes="300px" eager={i < 2} />
+            ))}
+          </div>
+        </div>
+        <span class="intro__tag label" id="introTag">05:58 — Start pen</span>
+      </div>
+      <div class="intro__bot">
+        <div class="intro__info"><span class="label">Sports. People. Experiences.</span><span class="label intro__hint" id="introHint">Move to steer · click to sprint</span></div>
+        <div class="intro__count" id="introCount">000</div>
+      </div>
+      <div class="intro__bar" id="introBar"></div>
+    </div>
+    <div class="shift" id="shift" aria-hidden="true"><p class="shift__label d" id="shiftLabel"></p><span class="shift__lane"></span></div>
+    <div class="cur" id="cur" aria-hidden="true"><span id="curLabel"></span></div>
+
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="nav" id="nav" data-tone="light">
+      <div class="nav__in">
+        <a class="logo" href="/" data-label="Home">
+          <span class="logo__mark">C<span class="logo__r">R</span>EW</span>
+          <span class="logo__sub">Commune<br />Pune</span>
+        </a>
+        <nav aria-label="Main">
+          <ul class="nav__links">
+            {NAV.map((n, i) => (
+              <li><a href={n.href} data-label={n.label} aria-current={current(n.href)}><span class="roll"><span data-t={n.label}>{n.label}</span></span><sup>0{i + 1}</sup></a></li>
+            ))}
+          </ul>
+        </nav>
+        <div class="nav__end">
+          <span class="nav__clock label"><i></i>Pune <span id="puneTime" class="mono">--:--</span> IST</span>
+          <Btn href="/contact" label="Plan with us" size="sm" to="Contact" />
+          <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu"><span class="burger__ic" aria-hidden="true"></span><span id="burgerTxt">Menu</span></button>
+        </div>
+      </div>
+    </header>
+    <nav class="menu" id="menu" aria-label="Site menu">
+      <ul>
+        {ALL.map((n) => (
+          <li><a class="d" href={n.href} data-label={n.label} aria-current={current(n.href)}>{n.label}<small>{n.note}</small></a></li>
+        ))}
+      </ul>
+      <div class="menu__foot">
+        <div class="label label--dim">Sports. People. Experiences.<br />Pune · {SITE.handle}</div>
+      </div>
+    </nav>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="foot" data-tone="dark">
+      <div class="wrap">
+        <div class="grid foot__grid">
+          <div class="foot__lead">
+            <p class="d d-m">Building communities that move.</p>
+            <p class="label label--dim">Events × Brands × Athletes × Wellness</p>
+            <div class="copyrow"><a class="ulink" href={SITE.instagram} target="_blank" rel="noopener noreferrer">{SITE.handle} on Instagram ↗</a><button class="copy" type="button" data-copy={SITE.handle}>Copy</button></div>
+            {SITE.email && <div class="copyrow"><a class="ulink" href={`mailto:${SITE.email}`}>{SITE.email}</a><button class="copy" type="button" data-copy={SITE.email}>Copy</button></div>}
+            {SITE.phone && <div class="copyrow"><a class="ulink" href={`tel:${SITE.phone.replace(/\s/g, "")}`}>{SITE.phone}</a><button class="copy" type="button" data-copy={SITE.phone}>Copy</button></div>}
+            <div><Btn href="/contact" label="Plan with us" variant="light" to="Contact" /></div>
+          </div>
+          <div class="foot__cols">
+            <div><h2 class="foot__h">Pages</h2><ul>{ALL.map((n) => <li><a href={n.href} data-label={n.label}>{n.label}</a></li>)}</ul></div>
+            <div><h2 class="foot__h">What we do</h2><ul>
+              <li><a href="/services#events" data-label="What we do">Events</a></li>
+              <li><a href="/services#brands" data-label="What we do">Brands</a></li>
+              <li><a href="/services#athletes" data-label="What we do">Athletes</a></li>
+              <li><a href="/services#wellness" data-label="What we do">Wellness</a></li>
+            </ul></div>
+            <div><h2 class="foot__h">Elsewhere</h2><ul>
+              <li><a href={SITE.instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a></li>
+              <li><a href={SITE.founder.url} target="_blank" rel="noopener noreferrer">Founder ↗</a></li>
+            </ul></div>
+          </div>
+        </div>
+        <div class="foot__base label">
+          <span>© <span id="yr">{new Date().getFullYear()}</span> Crew Commune · Pune, Maharashtra</span>
+          <span>Photos: Crew Commune, Unsplash · Video: Mixkit · <button type="button" id="replay">Replay intro</button> · <button type="button" id="toTop">Back to top ↑</button></span>
+        </div>
+        <p class="foot__word d" aria-hidden="true"><span>C</span><span class="r">R</span><span>E</span><span>W</span><span>&nbsp;</span><span>C</span><span>O</span><span>M</span><span>M</span><span>U</span><span>N</span><span>E</span></p>
+      </div>
+    </footer>
+    <div class="peek" id="peek" aria-hidden="true"><figure class="m" data-tone="ink" id="peekFig"><span class="plate"><b></b><span id="peekPlate"></span></span></figure></div>
+
+    <script>
+      import "../scripts/core";
+    </script>
+  </body>
+</html>

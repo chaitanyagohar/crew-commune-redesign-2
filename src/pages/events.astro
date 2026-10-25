@@ -1,0 +1,71 @@
+---
+import Base from "../layouts/Base.astro";
+import Media from "../components/Media.astro";
+import PageHero from "../components/PageHero.astro";
+import Btn from "../components/Btn.astro";
+import Cta from "../components/Cta.astro";
+import { SITE, UDAAN } from "../data/site";
+
+const list = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: [{ "@type": "ListItem", position: 1, url: `${SITE.url}/events/udaan-nari-shakti-run`, name: UDAAN.name }],
+};
+---
+<Base
+  title="Events — Runs, races & sports days by Crew Commune, Pune"
+  description="Events by Crew Commune in Pune, including the Udaan Nari Shakti Run, a run for women's empowerment through Aundh–Baner, now two seasons strong."
+  crumbs={[{ name: "Home", path: "/" }, { name: "Events", path: "/events" }]}
+  schema={[list]}
+>
+  <PageHero crumb="Events" title="Start lines we've built." label="Events" lede="Runs, races and sports days that bring Pune together. Our headline event is the Udaan Nari Shakti Run, now two seasons strong." aside={["Latest: Udaan 2.0", `${UDAAN.dateLabel} · ${UDAAN.flagOff}`]} />
+
+  <section class="sec--tight" data-tone="light" aria-labelledby="feat-h">
+    <div class="wrap">
+      <a class="ev-card" href="/events/udaan-nari-shakti-run" data-label="Udaan" data-cursor="Read">
+        <Media ig={2} stock="run2" vid="woman" alt="A woman running at sunrise" plate={["S2", "Udaan 2.0"]} tone="maroon" sizes="(max-width: 900px) 90vw, 55vw" eager />
+        <div class="ev-card__body">
+          <p class="label">Case study · {UDAAN.dateLabel}</p>
+          <h2 id="feat-h" class="d d-l">Udaan <span class="o">Nari Shakti</span> Run 2.0</h2>
+          <p class="body">A run for women's empowerment through Aundh–Baner: a 3K Saree Run, timed 5K and 10K races, and free entry for every woman.</p>
+          <dl class="snap">
+            <div><dt class="label">Flag-off</dt><dd>{UDAAN.flagOff}</dd></div>
+            <div><dt class="label">Women's entry</dt><dd>Free</dd></div>
+          </dl>
+          <span class="ulink">Read the race story →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="sec dark" data-tone="dark" id="seasons" aria-labelledby="seasons-h">
+    <div class="wrap">
+      <div class="head"><h2 id="seasons-h" class="d d-l" data-split>The Udaan story so far</h2><p class="body">Two seasons in Aundh–Baner, and room on the calendar for the next one.</p></div>
+      <div class="seasons">
+        <article class="season"><Media ig={1} stock="run1" alt="Runners on a city road" plate={["S1", "Udaan"]} tone="maroon" sizes="(max-width: 900px) 90vw, 30vw" /><p class="label red-t">Season 1</p><h3 class="d d-s">Udaan Nari Shakti Run</h3><p class="body">The first edition left participants happy, the society fitter and the city cleaner, and set up season two.</p></article>
+        <a class="season" href="/events/udaan-nari-shakti-run" data-label="Udaan" data-cursor="Read"><Media ig={3} stock="run2" alt="Women running at sunrise" plate={["S2", "Udaan 2.0"]} tone="stone" sizes="(max-width: 900px) 90vw, 30vw" /><p class="label red-t">Season 2 · 05 Jan 2025</p><h3 class="d d-s">Udaan Nari Shakti Run 2.0</h3><p class="body">3K, 5K and 10K categories, free entry for women, a Saree Run and a big post-race celebration.</p></a>
+        <a class="season season--next" href="/contact" data-label="Contact" data-cursor="Plan"><div class="m"><span class="d">+</span></div><p class="label red-t">Next</p><h3 class="d d-s">Your event here</h3><p class="body">A cause, a community, a brand or a company that wants to move? Let's put it on the calendar.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" data-tone="light" aria-labelledby="formats-h">
+    <div class="wrap split2">
+      <div class="split2__a">
+        <p class="label label--dim"><span class="paren">Formats</span></p>
+        <h2 id="formats-h" class="d d-l" data-split>What we can put on the calendar.</h2>
+      </div>
+      <div class="split2__b">
+        <ul class="steps">
+          <li class="step"><span class="step__t label">3K–21K</span><div><h3 class="d d-s">Road runs</h3><p>Measured routes, chip timing, water stations and finisher medals.</p></div></li>
+          <li class="step"><span class="step__t label">Cause</span><div><h3 class="d d-s">Community runs</h3><p>Runs with a message, like Udaan, with free entries and family zones.</p></div></li>
+          <li class="step"><span class="step__t label">Offices</span><div><h3 class="d d-s">Sports days</h3><p>Inter-department leagues and sports days for companies across Pune.</p></div></li>
+          <li class="step"><span class="step__t label">Leagues</span><div><h3 class="d d-s">Tournaments</h3><p>Cricket, football and badminton with fixtures, officials and trophies.</p></div></li>
+        </ul>
+        <div class="mt-m"><Btn href="/services" label="See everything we do" to="What we do" /></div>
+      </div>
+    </div>
+  </section>
+
+  <Cta l1="Partner on" l2="season three" />
+</Base>

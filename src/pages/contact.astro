@@ -1,0 +1,71 @@
+---
+import Base from "../layouts/Base.astro";
+import Media from "../components/Media.astro";
+import PageHero from "../components/PageHero.astro";
+import Btn from "../components/Btn.astro";
+import { SITE } from "../data/site";
+
+const types = ["Run or race", "Corporate sports day", "Cause or community run", "Tournament or league", "Brand partnership", "Athlete collaboration", "Wellness programme"];
+const contactPage = { "@context": "https://schema.org", "@type": "ContactPage", name: "Contact Crew Commune", url: `${SITE.url}/contact`, about: { "@id": `${SITE.url}/#org` } };
+---
+<Base
+  title="Contact — Plan an event with Crew Commune | Pune"
+  description="Plan a run, sports day, tournament, brand partnership or wellness programme in Pune with Crew Commune. Send a brief and get a plan, a route and a costing."
+  crumbs={[{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]}
+  schema={[contactPage]}
+>
+  <PageHero crumb="Contact" title="Let's get people moving." label="Contact" lede="Tell us about the event, the partnership or the programme you have in mind. The crew comes back with a plan, a route and a costing." aside={["Ideal lead time", "T–90 days for road races"]} />
+
+  <section class="sec--tight" data-tone="light" aria-labelledby="reach-h">
+    <div class="wrap split2">
+      <div class="split2__a">
+        <h2 id="reach-h" class="d d-m" data-split>Reach the crew</h2>
+        <div class="ways">
+          <a class="way" href={SITE.instagram} target="_blank" rel="noopener noreferrer"><span class="label label--dim">Instagram</span><span class="way__v">{SITE.handle}</span><span aria-hidden="true">↗</span></a>
+          {SITE.email && <a class="way" href={`mailto:${SITE.email}`}><span class="label label--dim">Email</span><span class="way__v">{SITE.email}</span><span aria-hidden="true">↗</span></a>}
+          {SITE.phone && <a class="way" href={`tel:${SITE.phone.replace(/\s/g, "")}`}><span class="label label--dim">Phone</span><span class="way__v">{SITE.phone}</span><span aria-hidden="true">↗</span></a>}
+          <a class="way" href={SITE.founder.url} target="_blank" rel="noopener noreferrer"><span class="label label--dim">Founder</span><span class="way__v">{SITE.founder.name}</span><span aria-hidden="true">↗</span></a>
+          <a class="way" href="https://www.google.com/maps/search/?api=1&query=Pune%2C+Maharashtra" target="_blank" rel="noopener noreferrer"><span class="label label--dim">Base</span><span class="way__v">Pune, Maharashtra</span><span aria-hidden="true">↗</span></a>
+        </div>
+        <Media as="div" stock="shoes" vid="laces" alt="A runner tying shoes before a race" plate={["T–90", "Let's talk"]} tone="ink" class="ar-43 mt-m" sizes="(max-width: 900px) 90vw, 40vw" />
+      </div>
+      <form class="form split2__b" id="enquiry" novalidate data-endpoint={SITE.formEndpoint} data-ig={SITE.handle.replace("@", "")}>
+        <fieldset class="chips">
+          <legend class="label label--dim">What are you planning?</legend>
+          {types.map((t, i) => (<label><input type="radio" name="type" value={t} id={`t${i}`} checked={i === 0} /><span>{t}</span></label>))}
+        </fieldset>
+        <div class="row2">
+          <div class="field"><label class="label" for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" maxlength="80" required /></div>
+          <div class="field"><label class="label" for="f-org">Organisation</label><input id="f-org" name="org" type="text" autocomplete="organization" maxlength="100" /></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label class="label" for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="16" placeholder="+91" required /></div>
+          <div class="field"><label class="label" for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" maxlength="120" required /></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label class="label" for="f-date">Preferred date</label><input id="f-date" name="date" type="date" /></div>
+          <div class="field"><label class="label" for="f-size">People <output id="sizeOut" class="mono" for="f-size">500</output></label><input id="f-size" name="size" type="range" min="50" max="5000" step="50" value="500" /></div>
+        </div>
+        <div class="field"><label class="label" for="f-msg">Anything else</label><textarea id="f-msg" name="message" rows="3" maxlength="1000" placeholder="Format, venue ideas, the cause, partners…"></textarea></div>
+        <input type="text" name="website" id="f-hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div><Btn href="" label="Send enquiry" variant="red" type="submit" /></div>
+        <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="sec" data-tone="light" aria-labelledby="faq-h">
+    <div class="wrap split2">
+      <div class="split2__a"><p class="label label--dim"><span class="paren">Good to know</span></p><h2 id="faq-h" class="d d-l" data-split>Quick answers.</h2></div>
+      <div class="split2__b faq">
+        <details><summary>What happens after I send the form?<i aria-hidden="true"></i></summary><p>The crew reads your brief and gets in touch to talk through dates, format, venue and budget, then shares a plan.</p></details>
+        <details><summary>How early should we reach out?<i aria-hidden="true"></i></summary><p>About three months ahead for a public road race. Four to six weeks is usually enough for a corporate sports day at a private venue.</p></details>
+        <details><summary>We're a brand. Can we partner on an event?<i aria-hidden="true"></i></summary><p>Yes. Pick "Brand partnership" in the form and tell us what you'd like to achieve. We'll suggest the right event and placement.</p></details>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import "../scripts/form";
+</script>

@@ -1,0 +1,156 @@
+---
+import Base from "../layouts/Base.astro";
+import Media from "../components/Media.astro";
+import Btn from "../components/Btn.astro";
+import Cta from "../components/Cta.astro";
+import HeroReel from "../components/HeroReel.astro";
+import Manifesto from "../components/Manifesto.astro";
+import PillarPanels from "../components/PillarPanels.astro";
+import { SITE, UDAAN } from "../data/site";
+
+
+const strip = [
+  { ig: 1, stock: "run1", time: "05:58", label: "Start pen", tone: "red", alt: "Runners at the start of a road race" },
+  { ig: 2, stock: "run2", time: "06:02", label: "Saree run", tone: "stone", alt: "Women running at sunrise" },
+  { vid: "laces", time: "06:15", label: "Laces tied", tone: "ink", alt: "A runner tying shoes before the start" },
+  { ig: 3, stock: "run4", vid: "track", time: "06:21", label: "KM 03", tone: "maroon", alt: "Runners racing on a track" },
+  { ig: 4, stock: "run6", time: "06:34", label: "Pacing", tone: "stone", alt: "A woman running on the course" },
+  { ig: 5, stock: "crowd", time: "06:48", label: "Cheer zone", tone: "ink", alt: "Spectators cheering at a race" },
+  { ig: 6, stock: "football", vid: "football", time: "07:05", label: "Sports day", tone: "track", alt: "A football match at a sports day" },
+  { ig: 7, stock: "finish", time: "07:31", label: "Finish line", tone: "ink", alt: "Finish arch at a race" },
+  { ig: 8, stock: "pack2", time: "07:40", label: "Medals", tone: "maroon", alt: "Runners in a road race" },
+  { ig: 9, stock: "group", time: "08:05", label: "Team photo", tone: "stone", alt: "Runners together after a race" },
+  { ig: 10, stock: "cricket", time: "08:20", label: "Prizes", tone: "stone", alt: "A cricket player with a bat" },
+  { ig: 11, stock: "shoes", time: "09:00", label: "Clean-up", tone: "ink", alt: "Running shoes" },
+];
+
+---
+<Base
+  title="Crew Commune — Sports. People. Experiences. | Pune"
+  description="Crew Commune builds communities that move. Sports events, brand experiences, athletes and wellness in Pune, from the Udaan Nari Shakti Run to corporate sports days."
+>
+  <HeroReel />
+
+  <section class="sec intro-sec" data-tone="light" aria-label="About Crew Commune">
+    <div class="wrap grid">
+      <p class="label label--dim"><span class="paren">The crew</span></p>
+      <p class="statement" data-words>Crew Commune brings sports, people and experiences together. We build the start lines, the sports days and the brand moments that get a city moving, then keep the community running long after race day.</p>
+      <div class="after">
+        <a class="ulink" href="/about" data-label="About">Meet the crew →</a>
+        <span class="label label--dim">Founded by {SITE.founder.name} · Pune</span>
+      </div>
+    </div>
+  </section>
+
+  <PillarPanels />
+
+  <section class="strip sec--tight" data-tone="light" aria-labelledby="bts-h">
+    <div class="wrap head">
+      <h2 id="bts-h" class="d d-l">Behind the<br />scenes <sup class="label">(12)</sup></h2>
+      <div class="strip__ctrl">
+        <button class="circ" type="button" id="stripPrev" aria-label="Scroll photos left"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></button>
+        <button class="circ" type="button" id="stripNext" aria-label="Scroll photos right"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
+      </div>
+    </div>
+    <div class="strip__track" id="strip" data-cursor="Drag">
+      {strip.map((s) => (
+        <div class="strip__item">
+          <Media ig={s.ig} stock={s.stock} vid={s.vid} alt={s.alt} plate={[s.time, s.label]} tone={s.tone} sizes="(max-width: 760px) 70vw, 30vw" />
+          <div class="strip__meta label"><span>{s.time}</span><span class="label--dim">{s.label}</span></div>
+        </div>
+      ))}
+    </div>
+    <div class="wrap"><div class="strip__prog"><i id="stripProg"></i></div></div>
+  </section>
+
+  <Manifesto />
+
+  <section class="mosaic sec" data-tone="light" aria-labelledby="mos-h">
+    <div class="mosaic__cols" aria-hidden="true">
+      <div class="mosaic__col" data-speed="-0.12">
+        <Media ig={1} stock="pack" plate={["", "Start pen"]} tone="maroon" sizes="25vw" />
+        <Media stock="run5" plate={["", "On course"]} tone="stone" class="wide" sizes="25vw" />
+        <Media ig={8} stock="group" plate={["", "Medals"]} tone="maroon" sizes="25vw" />
+      </div>
+      <div class="mosaic__col" data-speed="0.1">
+        <Media stock="football" vid="football2" plate={["", "Sports day"]} tone="track" sizes="25vw" />
+        <Media ig={2} stock="run2" plate={["", "Saree run"]} tone="stone" sizes="25vw" />
+        <Media stock="stadium" plate={["", "Cheer zone"]} tone="ink" class="wide" sizes="25vw" />
+      </div>
+      <div class="mosaic__col" data-speed="-0.2">
+        <Media stock="mono" plate={["", "Finish line"]} tone="ink" class="wide" sizes="25vw" />
+        <Media ig={3} stock="run3" vid="aerial" plate={["", "Start pen"]} tone="red" sizes="25vw" />
+        <Media stock="badminton" plate={["", "Prizes"]} tone="stone" sizes="25vw" />
+      </div>
+      <div class="mosaic__col" data-speed="0.16">
+        <Media ig={4} stock="run6" vid="park" plate={["", "Wellness"]} tone="ink" sizes="25vw" />
+        <Media stock="hockey" plate={["", "League night"]} tone="red" sizes="25vw" />
+        <Media stock="pack2" plate={["", "Race day"]} tone="maroon" class="wide" sizes="25vw" />
+      </div>
+    </div>
+    <div class="mosaic__center">
+      <div class="mosaic__card">
+        <p class="label label--dim">Sports · People · Experiences</p>
+        <h2 id="mos-h" class="d d-l" data-split>An experience for every stride.</h2>
+        <p class="body">From a 3K saree run to a company-wide cricket league, every event gets the same planning, safety cover and finish-line energy.</p>
+        <Btn href="/services" label="See what we do" to="What we do" />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec maroon feat" data-tone="dark" aria-labelledby="feat-h">
+    <div class="wrap grid">
+      <div class="feat__media" data-reveal>
+        <Media ig={2} stock="run2" vid="woman" alt="A woman running at sunrise" plate={["Season 2", "Udaan 2.0"]} tone="maroon" cap={["Season 2", " · Run for women"]} sizes="(max-width: 900px) 90vw, 40vw" />
+      </div>
+      <div class="feat__body">
+        <p class="label label--dim"><span class="paren">Featured race</span> · Season 2</p>
+        <h2 id="feat-h" class="feat__title d d-l"><span>Udaan</span><span class="o">Nari Shakti</span><span>Run 2.0</span></h2>
+        <p class="body">A run for women's empowerment through {UDAAN.area}, presented by {UDAAN.presenter} and organised by Crew Commune. Women ran free, families cheered from the kids' zone, and the 3K was a Saree Run.</p>
+        <div class="tick" aria-label="Race-day snapshot">
+          <span class="tick__k label"><i></i>Race-day snapshot</span>
+          <span class="label label--dim">Udaan 2.0</span>
+          <span class="tick__v">05·01·25</span>
+          <div class="tick__cells label"><div><span>Flag-off</span>{UDAAN.flagOff}</div><div><span>Categories</span>3K · 5K · 10K</div><div><span>Women's entry</span>₹0</div></div>
+        </div>
+        <div><Btn href="/events/udaan-nari-shakti-run" label="Read the race story" variant="light" to="Udaan" /></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marq dark" data-tone="dark" aria-hidden="true">
+    <div class="marq__track d" id="marq"><span>Sports</span><span class="dot">×</span><span class="o">People</span><span class="dot">×</span><span>Experiences</span><span class="dot">×</span><span class="o">Pune</span><span class="dot">×</span></div>
+  </div>
+
+  <section class="sec" data-tone="light" aria-labelledby="news-h">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="news-h" class="d d-l" data-split>From the crew</h2>
+        <a class="ulink" href="/events" data-label="Events">All events →</a>
+      </div>
+      <div class="cards">
+        <a class="card" href="/events/udaan-nari-shakti-run" data-label="Udaan" data-cursor="Read"><Media ig={2} stock="run2" alt="Women running at sunrise" plate={["05 Jan", "Udaan 2.0"]} tone="stone" sizes="(max-width: 900px) 90vw, 30vw" /><div class="card__meta label"><span>Race</span><span class="label--dim">05 Jan 2025</span></div><h3>Udaan Nari Shakti Run 2.0 flags off in Aundh–Baner, free for every woman</h3></a>
+        <a class="card" href="/events#seasons" data-label="Events" data-cursor="Read"><Media ig={1} stock="run1" alt="Runners on a city road" plate={["Season 1", "Udaan"]} tone="stone" sizes="(max-width: 900px) 90vw, 30vw" /><div class="card__meta label"><span>Story</span><span class="label--dim">Season 1</span></div><h3>How the first Udaan run kept society fit and the city clean</h3></a>
+        <a class="card" href="/about#process" data-label="About" data-cursor="Read"><Media stock="run5" alt="Runners sprinting down a city street" plate={["T–90", "Days out"]} tone="ink" sizes="(max-width: 900px) 90vw, 30vw" /><div class="card__meta label"><span>Guide</span><span class="label--dim">T–90 days</span></div><h3>Planning a run in Pune? Start three months out. Here's why</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec--tight insta" data-tone="light" aria-labelledby="ig-h">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="ig-h" class="d d-l" data-split>{SITE.handle}</h2>
+        <a class="ulink" href={SITE.instagram} target="_blank" rel="noopener noreferrer">Follow on Instagram ↗</a>
+      </div>
+      <div class="insta__grid">
+        {[[1, "run1", "Start line", "red"], [2, "run2", "Udaan", "stone"], [3, "run4", "On course", "maroon"], [5, "crowd", "Cheer zone", "ink"], [7, "finish", "Finish", "track"], [9, "group", "Team", "stone"]].map(([n, st, l, t]) => (
+          <a href={SITE.instagram} target="_blank" rel="noopener noreferrer" data-cursor="Open" aria-label={`Crew Commune on Instagram: ${l}`}>
+            <Media ig={n as number} stock={st as string} plate={["IG", l as string]} tone={t as string} sizes="(max-width: 900px) 33vw, 16vw" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

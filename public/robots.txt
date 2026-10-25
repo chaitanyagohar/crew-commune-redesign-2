@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://crew-commune-redesign.vercel.app/sitemap-index.xml

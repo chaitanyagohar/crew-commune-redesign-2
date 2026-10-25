@@ -1,0 +1,47 @@
+---
+/**
+ * A media frame: Crew Commune photo (if it exists) → stock photo → typographic plate.
+ * A video (vid) plays on top while the frame is on screen.
+ *
+ *   <Media ig={2} stock="run2" vid="woman" alt="…" plate={["06:02", "Saree run"]} tone="stone" />
+ */
+import { Picture } from "astro:assets";
+import { STOCK, unsplash, unsplashSrcset } from "../data/media";
+import { igPhoto } from "../data/resolve";
+
+interface Props {
+  ig?: number;
+  stock?: string;
+  vid?: string;
+  alt?: string;
+  plate?: [string, string];
+  tone?: "ink" | "red" | "maroon" | "stone" | "track" | string;
+  cap?: [string, string];
+  class?: string;
+  as?: "figure" | "div" | "span";
+  sizes?: string;
+  eager?: boolean;
+  id?: string;
+}
+const { ig, stock, vid, alt = "", plate = ["", ""], tone = "ink", cap, class: cls = "", as = "figure", sizes = "(max-width: 760px) 90vw, 40vw", eager = false, id } = Astro.props;
+
+// Crew Commune's own photos: src/assets/instagram/ig1.jpg, ig2.webp …
+const igImage = ig ? igPhoto(ig) : undefined;
+const stockBase = !igImage && stock ? STOCK[stock] : undefined;
+const Tag = as;
+const CapTag = as === "figure" ? "figcaption" : "span";
+const loading = eager ? "eager" : "lazy";
+const hasPhoto = !!(igImage || stockBase);
+const widths = igImage ? [480, 800, 1200, 1600].filter((w) => w < igImage.width).concat(Math.min(igImage.width, 1600)) : [];
+---
+<Tag class:list={["m", cls]} data-tone={tone} data-vid={vid} id={id} role={alt && !hasPhoto ? "img" : undefined} aria-label={alt && !hasPhoto ? alt : undefined}>
+  <span class="plate" aria-hidden="true"><b>{plate[0]}</b><span>{plate[1]}</span></span>
+  {igImage && (
+    <Picture src={igImage} formats={["avif", "webp"]} widths={[...new Set(widths)]} sizes={sizes} alt={alt} loading={loading} decoding="async" />
+  )}
+  {stockBase && (
+    <img src={unsplash(stockBase, 1000)} srcset={unsplashSrcset(stockBase)} sizes={sizes} alt={alt} loading={loading} decoding="async" width="1000" height="1250" />
+  )}
+  {cap && <CapTag class="cap"><b>{cap[0]}</b>{cap[1]}</CapTag>}
+  <slot />
+</Tag>

@@ -1,0 +1,61 @@
+---
+import Base from "../layouts/Base.astro";
+import Media from "../components/Media.astro";
+import PageHero from "../components/PageHero.astro";
+import Cta from "../components/Cta.astro";
+import { igCount } from "../data/resolve";
+
+const heights = ["l", "m", "s", "m", "l", "s"];
+// Every Crew Commune photo in src/assets/instagram/ shows here automatically, first.
+const own = Array.from({ length: igCount }, (_, i) => ({ ig: i + 1, cat: "crew", h: heights[i % heights.length], plate: ["Crew", `Photo ${i + 1}`], tone: "maroon", alt: `Crew Commune event photo ${i + 1}` }));
+const stock = [
+  { stock: "run1", cat: "runs", h: "l", plate: ["05:58", "Start pen"], tone: "red", alt: "Runners at the start of a road race" },
+  { stock: "run2", cat: "community", h: "m", plate: ["06:02", "Saree run"], tone: "stone", alt: "Women running at sunrise" },
+  { stock: "shoes", vid: "laces", cat: "raceday", h: "s", plate: ["06:15", "Laces tied"], tone: "ink", alt: "A runner tying shoes before the start" },
+  { stock: "run4", vid: "track", cat: "runs", h: "s", plate: ["06:21", "KM 03"], tone: "maroon", alt: "Runners racing on a track" },
+  { stock: "run6", cat: "wellness", h: "l", plate: ["06:34", "Pacing"], tone: "stone", alt: "A woman running on the course" },
+  { stock: "crowd", cat: "community", h: "m", plate: ["06:48", "Cheer zone"], tone: "ink", alt: "Spectators cheering at a marathon" },
+  { stock: "football", vid: "football2", cat: "sport", h: "s", plate: ["10:00", "Sports day"], tone: "track", alt: "A football match in progress" },
+  { stock: "finish", cat: "raceday", h: "l", plate: ["07:31", "Finish line"], tone: "ink", alt: "Finish arch at the end of a race" },
+  { stock: "cricket", cat: "sport", h: "m", plate: ["16:00", "League final"], tone: "stone", alt: "A cricket player with a bat" },
+  { stock: "pack", cat: "runs", h: "s", plate: ["07:10", "KM 07"], tone: "stone", alt: "A group of runners in a marathon" },
+  { stock: "group", cat: "community", h: "m", plate: ["08:05", "Team photo"], tone: "maroon", alt: "Runners together after a race" },
+  { stock: "stadium", cat: "sport", h: "l", plate: ["19:30", "Stadium night"], tone: "maroon", alt: "A cricket stadium full of spectators" },
+];
+const tiles = [...own, ...stock];
+const filters = [["all", "All"], ...(igCount ? [["crew", "Crew Commune"]] : []), ["runs", "Road runs"], ["community", "Community"], ["sport", "Sports days"], ["wellness", "Wellness"], ["raceday", "Race day"]];
+---
+<Base
+  title="Gallery — Race mornings & sports days | Crew Commune, Pune"
+  description="Photos and video from Crew Commune race mornings, community runs and sports days in Pune."
+  crumbs={[{ name: "Home", path: "/" }, { name: "Gallery", path: "/gallery" }]}
+>
+  <PageHero crumb="Gallery" title="Race mornings." label="Gallery" lede="Start pens at dawn, saree runners, timing mats and finish-line hugs. Tap any frame to see it full size." aside={[`${tiles.length} frames`, "Photos & video"]} />
+
+  <section class="sec--tight" data-tone="light" aria-label="Photo gallery">
+    <div class="wrap">
+      <div class="filters" role="group" aria-label="Filter photos">
+        {filters.map(([k, l], i) => <button class="filter" type="button" data-filter={k} aria-pressed={i === 0 ? "true" : "false"}>{l}</button>)}
+      </div>
+      <div class="masonry" id="masonry">
+        {tiles.map((t) => (
+          <button class="tile" type="button" data-cat={t.cat} data-h={t.h} data-cursor="View" aria-label={`View: ${t.alt}`}>
+            <Media as="span" ig={"ig" in t ? t.ig : undefined} stock={"stock" in t ? t.stock : undefined} vid={"vid" in t ? t.vid : undefined} alt={t.alt} plate={t.plate as [string, string]} tone={t.tone} cap={[t.plate[0], ` · ${t.plate[1]}`]} sizes="(max-width: 760px) 50vw, 33vw" />
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <div class="lb__bar"><span class="label" id="lbCount">1 / {tiles.length}</span><button class="circ" type="button" id="lbClose" aria-label="Close photo viewer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg></button></div>
+    <div class="lb__stage" id="lbStage"></div>
+    <div class="lb__nav"><span class="label label--dim" id="lbCap"></span><span class="strip__ctrl"><button class="circ" type="button" id="lbPrev" aria-label="Previous photo"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></button><button class="circ" type="button" id="lbNext" aria-label="Next photo"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button></span></div>
+  </div>
+
+  <Cta l1="Your event" l2="could be next" />
+</Base>
+
+<script>
+  import "../scripts/gallery";
+</script>

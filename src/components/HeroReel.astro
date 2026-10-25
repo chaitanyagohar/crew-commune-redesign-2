@@ -1,0 +1,27 @@
+---
+/**
+ * Home hero: full-screen reel of real sports footage under the brand line.
+ */
+import Media from "./Media.astro";
+---
+<section class="hero" data-tone="dark" id="top" aria-labelledby="hero-h">
+  <div class="hero__reel" id="heroReel" aria-hidden="true">
+    <Media as="div" ig={1} stock="run5" tone="maroon" sizes="100vw" eager class="hero__poster" />
+  </div>
+  <div class="hero__tick label" id="heroTick" aria-hidden="true"><span id="heroTickN">01</span>/<span id="heroTickT">04</span><i><b id="heroTickBar"></b></i></div>
+  <div class="hero__in wrap">
+    <p class="label hero__kicker" data-fade>Crew Commune · Pune</p>
+    <h1 id="hero-h" class="hero__title d d-xxl" data-hero>
+      <span class="ln">Sports.</span><span class="ln ln--r">People.</span><span class="ln">Experiences<b class="red-t">.</b></span>
+    </h1>
+    <div class="hero__row" data-fade>
+      <p class="lede"><strong>Building communities that move.</strong> We create sports events, partner with brands, work with athletes and champion wellness, so more of Pune gets moving, together.</p>
+      <a class="pill" href="/events/udaan-nari-shakti-run" data-label="Udaan"><b>Latest</b><span>Udaan Nari Shakti Run 2.0</span><span class="btn__dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></a>
+    </div>
+    <div class="hero__meta label" data-fade>
+      <span>Events × Brands × Athletes × Wellness</span>
+      <span class="scrollcue hide-s"><i></i>Scroll</span>
+      <span class="mono hide-s">Pune, Maharashtra</span>
+    </div>
+  </div>
+</section>

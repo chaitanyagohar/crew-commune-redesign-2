@@ -1,0 +1,13 @@
+---
+interface Props { crumb: string; title: string; label: string; lede: string; aside?: [string, string] }
+const { crumb, title, label, lede, aside } = Astro.props;
+---
+<section class="phero wrap" data-tone="light">
+  <nav class="phero__crumb label label--dim" aria-label="Breadcrumb" data-fade><a href="/" data-label="Home">Home</a><span aria-hidden="true">/</span><span aria-current="page">{crumb}</span></nav>
+  <h1 class="phero__title d d-xl" data-title>{title}</h1>
+  <div class="phero__row" data-fade>
+    <p class="label label--dim"><span class="paren">{label}</span></p>
+    <p class="lede">{lede}</p>
+    {aside && <div class="phero__aside label"><span>{aside[0]}</span><span class="label--dim">{aside[1]}</span></div>}
+  </div>
+</section>

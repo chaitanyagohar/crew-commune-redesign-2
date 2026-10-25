@@ -1,0 +1,67 @@
+---
+import Base from "../layouts/Base.astro";
+import Media from "../components/Media.astro";
+import PageHero from "../components/PageHero.astro";
+import Cta from "../components/Cta.astro";
+import { PILLARS, UDAAN } from "../data/site";
+
+const faqs = [
+  ["How early should we start planning a run?", "For road races that need police and civic permission, about three months ahead is comfortable. Corporate sports days at a private venue can come together in four to six weeks."],
+  ["Do you handle permissions?", "Yes. We prepare and follow up on traffic police and local authority permissions, and coordinate with venues, housing societies and ambulance providers."],
+  ["Can brands partner on an event?", "Yes. We plan title and zone partnerships, expo stalls, sampling, branded kits and stage time, and share coverage for partners' social media."],
+  ["Do you work with athletes?", "Yes. Athletes can lead runs, pace, host clinics or make appearances, and we build the event around what they bring to the community."],
+  ["Do you run wellness programmes for companies?", "Yes. Alongside sports days, we can plan regular community runs and warm-up or recovery sessions for teams."],
+  ["Do you work outside Pune?", "We're based in Pune. Talk to us about events elsewhere in Maharashtra and we'll tell you what we can support."],
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
+};
+---
+<Base
+  title="What we do — Events, Brands, Athletes, Wellness | Crew Commune"
+  description="Sports events, brand experiences, athlete collaborations and wellness programmes in Pune. Runs, sports days, tournaments and activations, organised end to end by Crew Commune."
+  crumbs={[{ name: "Home", path: "/" }, { name: "What we do", path: "/services" }]}
+  schema={[faqSchema]}
+>
+  <PageHero crumb="What we do" title="Events × Brands × Athletes × Wellness." label="What we do" lede="Four ways Crew Commune gets people moving. Pick one, or bring us an idea that needs all four." aside={["Pune, Maharashtra", "Planned end to end"]} />
+
+  <section class="sec--tight" data-tone="light" aria-label="Our four pillars">
+    <div class="wrap">
+      {PILLARS.map((p, i) => (
+        <article class="svb" id={p.id} aria-labelledby={`${p.id}-h`}>
+          <p class="svb__n label">0{i + 1} — {p.tag}</p>
+          <div class="svb__body">
+            <h2 id={`${p.id}-h`} class="d d-l">{p.name}</h2>
+            <p class="lede"><strong>{p.line}</strong> {p.body}</p>
+            <ul>{p.items.map((it) => <li>{it}</li>)}</ul>
+          </div>
+          <div class="svb__media">
+            <Media ig={p.ig} stock={p.stock} vid={p.vid} alt={`${p.name}: ${p.line}`} plate={p.plate} tone={p.tone} cap={[p.plate[0], ` · ${p.name}`]} class="zoom" sizes="(max-width: 900px) 90vw, 32vw" />
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="sec dark" data-tone="dark" aria-labelledby="kit-h">
+    <div class="wrap">
+      <div class="head"><h2 id="kit-h" class="d d-l" data-split>In every race kit</h2><p class="body">Standard at every run we organise.</p></div>
+      <div class="kit">
+        {UDAAN.kit.map((k, i) => (<div><span class="label red-t">0{i + 1}</span><h3 class="d d-s">{k}</h3></div>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" data-tone="light" aria-labelledby="faq-h">
+    <div class="wrap split2">
+      <div class="split2__a"><p class="label label--dim"><span class="paren">Questions</span></p><h2 id="faq-h" class="d d-l" data-split>Before you book.</h2></div>
+      <div class="split2__b faq">
+        {faqs.map(([q, a]) => (<details><summary>{q}<i aria-hidden="true"></i></summary><p>{a}</p></details>))}
+      </div>
+    </div>
+  </section>
+
+  <Cta l1="Pick a pillar." l2="We'll do the rest" />
+</Base>

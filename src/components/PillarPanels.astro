@@ -1,0 +1,29 @@
+---
+// Events × Brands × Athletes × Wellness — four full-screen panels with footage.
+// Desktop: pinned and scrolled sideways. Phones: stacked.
+import Media from "./Media.astro";
+import { PILLARS } from "../data/site";
+---
+<section class="pp" data-tone="dark" aria-labelledby="pp-h">
+  <h2 id="pp-h" class="sr">What we do: Events, Brands, Athletes, Wellness</h2>
+  <div class="pp__pin">
+    <div class="pp__track" id="ppTrack">
+      {PILLARS.map((p, i) => (
+        <article class="pp__panel" aria-labelledby={`pp-${p.id}`}>
+          <Media class="pp__bg" ig={p.ig} stock={p.stock} vid={p.vid} tone={p.tone} plate={["", ""]} sizes="100vw" />
+          <div class="pp__shade" aria-hidden="true"></div>
+          <div class="pp__body wrap">
+            <div class="pp__top label"><span>0{i + 1} / 0{PILLARS.length}</span><span>{p.tag}</span></div>
+            <h3 id={`pp-${p.id}`} class="pp__name d">{i > 0 && <span class="pp__x" aria-hidden="true">×</span>}{p.name}</h3>
+            <div class="pp__copy">
+              <p class="lede">{p.line}</p>
+              <ul class="pp__items label">{p.items.map((it) => <li>{it}</li>)}</ul>
+              <a class="ulink" href={`/services#${p.id}`} data-label="What we do">Explore {p.name.toLowerCase()} →</a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="pp__dots" aria-hidden="true">{PILLARS.map((p) => <span><i></i>{p.name}</span>)}</div>
+  </div>
+</section>

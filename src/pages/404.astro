@@ -1,0 +1,15 @@
+---
+import Base from "../layouts/Base.astro";
+import Btn from "../components/Btn.astro";
+---
+<Base title="Page not found | Crew Commune" description="This page doesn't exist. Head back to the start line." noindex>
+  <section class="phero wrap nf" data-tone="light">
+    <p class="label label--dim" data-fade>Error 404 · Off course</p>
+    <h1 class="phero__title d d-xl" data-title>Wrong turn on the route.</h1>
+    <div class="phero__row" data-fade>
+      <p class="label label--dim"><span class="paren">404</span></p>
+      <p class="lede">This page doesn't exist or has moved. Head back to the start line, or tell us what you were looking for.</p>
+      <div class="phero__aside"><Btn href="/" label="Back to the start" to="Home" /></div>
+    </div>
+  </section>
+</Base>

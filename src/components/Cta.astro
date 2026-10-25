@@ -1,0 +1,17 @@
+---
+import Btn from "./Btn.astro";
+import Media from "./Media.astro";
+interface Props { l1?: string; l2?: string; lede?: string }
+const { l1 = "Let's build", l2 = "something that moves", lede = "Tell us the date, the people and the idea. We'll come back with a plan, a route and a costing." } = Astro.props;
+---
+<section class="sec red cta" data-tone="dark" aria-labelledby="cta-h">
+  <Media class="cta__vid duo" vid="hurdles" stock="run4" tone="maroon" sizes="460px" />
+  <div class="wrap cta__in">
+    <p class="label">Work with us</p>
+    <h2 id="cta-h" class="cta__title d d-xl" data-split><span class="ln">{l1}</span> <span class="ln">{l2}</span></h2>
+    <div class="cta__row">
+      <p class="lede">{lede}</p>
+      <Btn href="/contact" label="Plan with us" to="Contact" />
+    </div>
+  </div>
+</section>

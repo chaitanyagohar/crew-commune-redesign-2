@@ -1,0 +1,140 @@
+---
+import Base from "../../layouts/Base.astro";
+import Media from "../../components/Media.astro";
+import Cta from "../../components/Cta.astro";
+import { SITE, UDAAN } from "../../data/site";
+
+const path = "/events/udaan-nari-shakti-run";
+const event = {
+  "@context": "https://schema.org",
+  "@type": "SportsEvent",
+  "@id": `${SITE.url}${path}#event`,
+  name: UDAAN.name,
+  description: "A run for women's empowerment through Aundh–Baner, Pune, with a 3K Saree Run and timed 5K and 10K races. Free entry for women.",
+  url: `${SITE.url}${path}`,
+  image: `${SITE.url}/og.jpg`,
+  startDate: UDAAN.start,
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  eventStatus: "https://schema.org/EventScheduled",
+  location: { "@type": "Place", name: "Aundh–Baner", address: { "@type": "PostalAddress", addressLocality: "Pune", addressRegion: "Maharashtra", addressCountry: "IN" } },
+  organizer: { "@id": `${SITE.url}/#org` },
+  sponsor: { "@type": "Person", name: UDAAN.presenter },
+  sport: "Running",
+  isAccessibleForFree: true,
+};
+const highlights = [
+  ["Free", "Free for women", "Registration cost nothing for every female participant."],
+  ["3K", "The Saree Run", "Women could run or walk the 3K in a saree, as a celebration rather than a competition."],
+  ["5K · 10K", "Timed categories", "Competitive races with a timing certificate for every finisher."],
+  ["Prizes", "Cash & goodies", "Prizes for winners, plus a lucky draw and a best-costume contest."],
+  ["Family", "Kids' zone", "Entertainment for children who came along with the women running."],
+  ["Cause", "Beyond the run", "Promoting education, sport, equal employment and healthcare access for women."],
+];
+const gallery = [
+  { ig: 2, stock: "run2", plate: ["06:02", "Saree run"], tone: "stone", alt: "Women running at sunrise" },
+  { ig: 1, stock: "run1", plate: ["05:58", "Start pen"], tone: "red", alt: "Runners at the start line" },
+  { ig: 3, stock: "pack", plate: ["06:21", "KM 03"], tone: "maroon", alt: "Runners on the course" },
+  { ig: 7, stock: "finish", plate: ["07:31", "Finish"], tone: "ink", alt: "The finish arch" },
+  { ig: 8, stock: "group", plate: ["07:40", "Medals"], tone: "maroon", alt: "Finishers with medals" },
+  { ig: 5, stock: "crowd", plate: ["06:48", "Cheer zone"], tone: "ink", alt: "Families cheering runners on" },
+];
+---
+<Base
+  title="Udaan Nari Shakti Run 2.0 — Run for women's empowerment, Pune | Crew Commune"
+  description="The story of Udaan Nari Shakti Run 2.0: a run for women's empowerment in Aundh–Baner, Pune, on 5 January 2025, with a 3K Saree Run, timed 5K and 10K races and free entry for women."
+  crumbs={[{ name: "Home", path: "/" }, { name: "Events", path: "/events" }, { name: UDAAN.name, path }]}
+  schema={[event]}
+>
+  <section class="cs-hero" data-tone="dark" aria-labelledby="cs-h">
+    <Media as="div" class="cs-hero__bg" ig={2} stock="run2" vid="woman" tone="maroon" sizes="100vw" eager />
+    <div class="cs-hero__in wrap">
+      <nav class="phero__crumb label" aria-label="Breadcrumb" data-fade><a href="/" data-label="Home">Home</a><span aria-hidden="true">/</span><a href="/events" data-label="Events">Events</a><span aria-hidden="true">/</span><span aria-current="page">Udaan 2.0</span></nav>
+      <p class="label" data-fade>Case study · Season 2 · Run for women's empowerment</p>
+      <h1 id="cs-h" class="d" data-title>Udaan <span class="o">Nari Shakti</span> Run 2.0</h1>
+      <dl class="cs-facts" data-fade>
+        <div><dt class="label">Date</dt><dd>{UDAAN.dateLabel}</dd></div>
+        <div><dt class="label">Flag-off</dt><dd>{UDAAN.flagOff}</dd></div>
+        <div><dt class="label">Area</dt><dd>Aundh–Baner</dd></div>
+        <div><dt class="label">Categories</dt><dd>3K · 5K · 10K</dd></div>
+        <div><dt class="label">Women's entry</dt><dd>Free</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec" data-tone="light" aria-labelledby="brief-h">
+    <div class="wrap cs-story">
+      <p class="label label--dim"><span class="paren">The brief</span></p>
+      <div class="cs-story__body">
+        <h2 id="brief-h" class="sr">The brief</h2>
+        <p class="statement" data-words>Bring the women of Aundh–Baner onto one start line, make it free for every one of them, and turn a morning run into a statement about equality.</p>
+        <p class="body">Udaan Nari Shakti Run is an initiative of {UDAAN.presenter}, a social worker and sports enthusiast working across Aundh, Baner, Balewadi and Sus–Mahalunge. After a well-received first season, Crew Commune organised season two: a collective run that anyone could join, raising awareness of the challenges women face and celebrating what they achieve.</p>
+        <p class="body">Our job was the whole morning: route, permissions, timing, hydration, medical cover, kits, the kids' zone and the finish-line celebration.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec maroon" data-tone="dark" aria-labelledby="route-h">
+    <div class="wrap cs-route">
+      <div>
+        <p class="label label--dim"><span class="paren">The course</span></p>
+        <h2 id="route-h" class="d d-l" data-split>Three ways to run it.</h2>
+        <p class="body">A celebration distance, a fast 5K and the full 10K, so every woman could pick her own challenge.</p>
+      </div>
+      <div>
+        <div class="cats" role="tablist" aria-label="Race categories">
+          {UDAAN.categories.map((c, i) => (
+            <button class="cat" type="button" role="tab" id={`cat${i}`} aria-selected={i === 0 ? "true" : "false"} aria-controls="routePanel" tabindex={i === 0 ? 0 : -1} data-frac={c.frac} data-note={c.note} data-km={`${c.km.replace("K", "")} KM`}>{c.km} · {c.label}</button>
+          ))}
+        </div>
+        <div class="route" id="routePanel" role="tabpanel" aria-labelledby="cat0">
+          <svg viewBox="0 0 420 110" aria-hidden="true">
+            <path class="route__base" d="M10 80 C70 10 120 100 190 50 S300 10 340 70 S400 90 410 30" />
+            <path class="route__run" id="routePath" d="M10 80 C70 10 120 100 190 50 S300 10 340 70 S400 90 410 30" />
+            <circle class="route__dot" id="routeDot" r="6" cx="10" cy="80" />
+            <text class="route__km" x="6" y="104">START</text><text class="route__km" x="372" y="104" id="routeKm">3 KM</text>
+          </svg>
+          <p class="route__note label" id="catNote">{UDAAN.categories[0].note}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" data-tone="light" aria-labelledby="hl-h">
+    <div class="wrap">
+      <div class="head"><h2 id="hl-h" class="d d-l" data-split>What made it different</h2><p class="body">Six details from the race brief that shaped the morning.</p></div>
+      <div class="hl">
+        {highlights.map(([k, h, p]) => (<div><span class="label red-t">{k}</span><h3 class="d d-s">{h}</h3><p>{p}</p></div>))}
+      </div>
+      <ul class="kit-chips" aria-label="In every race kit">{UDAAN.kit.map((k) => <li>{k}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="sec--tight" data-tone="light" aria-labelledby="day-h">
+    <div class="wrap">
+      <div class="head"><h2 id="day-h" class="d d-l" data-split>Race morning</h2><a class="ulink" href="/gallery" data-label="Gallery">Full gallery →</a></div>
+      <div class="cs-gallery">
+        {gallery.map((g) => <Media ig={g.ig} stock={g.stock} alt={g.alt} plate={g.plate as [string, string]} tone={g.tone} cap={[g.plate[0], ` · ${g.plate[1]}`]} class="zoom" sizes="(max-width: 760px) 50vw, 25vw" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark" data-tone="dark" aria-labelledby="next-h">
+    <div class="wrap split2">
+      <div class="split2__a">
+        <p class="label label--dim"><span class="paren">Seasons</span></p>
+        <h2 id="next-h" class="d d-l" data-split>Season one set it up. Season two made it bigger.</h2>
+      </div>
+      <div class="split2__b">
+        <p class="lede">The first Udaan run left participants happy, the society fitter and the city cleaner. That's why it came back.</p>
+        <p class="body">Want to bring a run like this to your neighbourhood, company or cause? We'll build it with you, from the first idea to the last medal.</p>
+        <a class="ulink" href="/contact" data-label="Contact">Plan a run with us →</a>
+      </div>
+    </div>
+  </section>
+
+  <Cta l1="Partner on" l2="season three" />
+</Base>
+
+<script>
+  import "../../scripts/events";
+</script>
